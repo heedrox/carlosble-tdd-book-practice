@@ -8,9 +8,7 @@ public class Validator {
     int minValue;
     int maxValue;
 
-    public Validator(int minValue, int maxValue) {
-        this.minValue = minValue;
-        this.maxValue = maxValue;
+    public Validator() {
     }
 
     public void validateArgs(int operand1, int operand2) throws OverflowException {
@@ -20,6 +18,8 @@ public class Validator {
         if (operand2 > maxValue) { throw new OverflowException("argument 2 greater than max value"); }
     }
 
-    public void setLimits(int calculatorMinValue, int calculatorMaxValue) {
+    public void setLimits(int minValue, int maxValue) {
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 }
