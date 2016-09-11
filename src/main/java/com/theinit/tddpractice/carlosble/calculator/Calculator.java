@@ -13,8 +13,10 @@ public class Calculator {
         this.maxValue = maxValue;
     }
 
-    public int add(int operand1, int operand2) {
-        return operand1 + operand2;
+    public int add(int operand1, int operand2) throws OverflowException {
+        int result = operand1 + operand2;
+        if (result > maxValue) throw new OverflowException("result over maxValue");
+        return result;
     }
 
     public int substract(int operand1, int operand2) throws OverflowException {
