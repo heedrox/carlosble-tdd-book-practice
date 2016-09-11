@@ -19,16 +19,6 @@ public class ValidatorTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Validator validator;
-
-    private int minValue = -100;
-    private int maxValue = 100;
-
-    @Before
-    public void setupValidator() {
-        this.validator = new Validator();
-    }
-
     @Test
     @Parameters({ "1, 0, false",
             "101, 0, true",
@@ -37,11 +27,12 @@ public class ValidatorTest {
             "0, -101, true"})
     public void validatesArguments(int arg1, int arg2, boolean expectedOverflowExceptionThrown) throws OverflowException{
 
+        Validator validator  = new Validator(-100, 100);
+
         if (expectedOverflowExceptionThrown) {
             thrown.expect(OverflowException.class);
         }
 
-        validator.setLimits(minValue, maxValue);
         validator.validateArgs(arg1, arg2);
 
     }
