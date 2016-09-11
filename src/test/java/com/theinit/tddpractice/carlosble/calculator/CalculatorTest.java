@@ -74,4 +74,17 @@ public class CalculatorTest {
         calculator.add(calculatorMinValue - 1 , calculatorMaxValue + 1);
     }
 
+    @Test
+    public void substractWhenArgumentsExceedLimits() throws OverflowException {
+        thrown.expect(OverflowException.class);
+
+        calculator.substract(calculatorMaxValue + 1, calculatorMinValue - 1);
+    }
+
+    @Test
+    public void substractWhenArgumentsExceedLimitsOtherWay() throws OverflowException {
+        thrown.expect(OverflowException.class);
+
+        calculator.substract(calculatorMinValue - 1 , calculatorMaxValue + 1);
+    }
 }
