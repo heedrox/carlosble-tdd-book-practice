@@ -10,6 +10,10 @@ public class CalcProxy {
     int minValue;
     int maxValue;
 
+    public CalcProxy(Calculator calculator) {
+        this.calculator = calculator;
+    }
+
     public CalcProxy(Calculator calculator, Validator validator, int calculatorMinValue, int calculatorMaxValue) {
         this.calculator = calculator;
         this.validator = validator;
@@ -17,9 +21,9 @@ public class CalcProxy {
         this.maxValue = calculatorMaxValue;
     }
 
-    public void binaryOperation(int operation, int arg1, int arg2) throws OverflowException{
-        this.validator.setLimits(this.minValue, this.maxValue);
-        this.validator.validateArgs(arg1, arg2);
-        this.calculator.add(arg1, arg2);
+    public int binaryOperation(int operation, int arg1, int arg2) throws OverflowException{
+        //this.validator.setLimits(this.minValue, this.maxValue);
+        //this.validator.validateArgs(arg1, arg2);
+        return this.calculator.add(arg1, arg2);
     }
 }

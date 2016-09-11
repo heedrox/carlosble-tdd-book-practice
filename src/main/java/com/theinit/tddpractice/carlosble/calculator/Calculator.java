@@ -9,10 +9,8 @@ public class Calculator {
 
     int minValue;
     int maxValue;
-    Validator validator;
 
-    public void setValidator(Validator validator) {
-        this.validator = validator;
+    public Calculator() {
     }
 
 
@@ -22,7 +20,6 @@ public class Calculator {
     }
 
     public int add(int operand1, int operand2) throws OverflowException {
-        validator.validateArgs(operand1, operand2);
 
         int result = operand1 + operand2;
 
@@ -31,8 +28,6 @@ public class Calculator {
     }
 
     public int substract(int operand1, int operand2) throws OverflowException {
-        validator.validateArgs(operand1, operand2);
-
         int result = operand1 - operand2;
         if (result < this.minValue) throw new OverflowException("result under minValue");
         return result;

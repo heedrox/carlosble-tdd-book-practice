@@ -29,7 +29,6 @@ public class CalculatorTest {
     @Before
     public void setupCalculator() {
         this.calculator = new Calculator(calculatorMinValue, calculatorMaxValue);
-        this.calculator.setValidator(new Validator(calculatorMinValue, calculatorMaxValue));
     }
 
     @Test
@@ -90,21 +89,6 @@ public class CalculatorTest {
         thrown.expect(OverflowException.class);
 
         calculator.substract(calculatorMinValue - 1 , calculatorMaxValue + 1);
-    }
-
-    @Test
-    public void coordinationBetweenCalculatorAndValidator() throws OverflowException  {
-        int arg1 = 10;
-        int arg2 = 20;
-        Validator mockValidator = Mockito.mock(Validator.class);
-        Calculator mockCalculator = Mockito.mock(Calculator.class);
-        CalcProxy calcProxy = new CalcProxy(mockCalculator, mockValidator, calculatorMinValue, calculatorMaxValue);
-
-        calcProxy.binaryOperation(Calculator.ADD, arg1, arg2);
-
-        Mockito.verify(mockValidator).setLimits(calculatorMinValue, calculatorMaxValue);
-        Mockito.verify(mockValidator).validateArgs(arg1, arg2);
-        Mockito.verify(mockCalculator).add(arg1, arg2);
     }
 
 
