@@ -6,6 +6,7 @@ package com.theinit.tddpractice.carlosble.calculator;
 public class Calculator {
 
     public static final int ADD = 1;
+    public static final int SUBSTRACT = 2;
 
     int minValue;
     int maxValue;

@@ -24,6 +24,10 @@ public class CalcProxy {
     public int binaryOperation(int operation, int arg1, int arg2) throws OverflowException{
         //this.validator.setLimits(this.minValue, this.maxValue);
         //this.validator.validateArgs(arg1, arg2);
-        return this.calculator.add(arg1, arg2);
+        if (operation == Calculator.ADD) {
+            return this.calculator.add(arg1, arg2);
+        } else {
+            return this.calculator.substract(arg1, arg2);
+        }
     }
 }

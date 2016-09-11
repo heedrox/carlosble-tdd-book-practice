@@ -28,5 +28,18 @@ public class CalcProxyTest {
         Assert.assertEquals("adding "+arg1+ " + "+arg2+" gives "+expectedResult, expectedResult, result);
     }
 
+    @Test
+    @Parameters({"2, 2, 0",
+                 "3, 4, -1",
+                 "5, 3, 2"})
+    public void substractsTwoNumbers(int arg1, int arg2, int expectedResult) throws OverflowException  {
+        Calculator calculator = new Calculator(minValue, maxValue);
+        CalcProxy calcProxy = new CalcProxy(calculator);
+
+        int result = calcProxy.binaryOperation(Calculator.SUBSTRACT, arg1, arg2);
+
+        Assert.assertEquals("substracting "+arg1+ " - "+arg2+" gives "+expectedResult, expectedResult, result);
+    }
+
 
 }
