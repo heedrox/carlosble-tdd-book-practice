@@ -18,7 +18,8 @@ public class ExpressionValidatorTest {
     "253 + 24",
     "2 * 4",
     "2 - 3",
-    "2 / 2"})
+    "2 / 2",
+    "2  +    4"})
     public void validExpressions(String expression) {
         ExpressionValidator expressionValidator = new ExpressionValidator();
 
