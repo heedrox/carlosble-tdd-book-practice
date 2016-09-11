@@ -18,7 +18,7 @@ public class CalculatorTest {
     @Parameters({"2, 2, 4",
                  "3, 4, 7" })
     public void addsTwoNumbers(int operand1, int operand2, int expectedResult) {
-        Calculator calculator = new Calculator();
+        Calculator calculator = new Calculator(-100, 100);
         int result = calculator.add(operand1,operand2);
         Assert.assertEquals("The sum of "+operand1+" and "+operand2+" should be "+expectedResult, expectedResult, result);
     }
@@ -27,7 +27,7 @@ public class CalculatorTest {
     @Parameters({"5, 3,  2",
                  "3, 5, -2" })
     public void substractsTwoNumbers(int operand1, int operand2, int expectedResult) {
-        Calculator calculator = new Calculator();
+        Calculator calculator = new Calculator(-100, 100);
         int result = calculator.substract(operand1,operand2);
         Assert.assertEquals("The result of substracting "+operand1+" minus "+operand2+" should be "+expectedResult, expectedResult, result);
     }
