@@ -12,9 +12,11 @@ public class MathParser {
 
         ArrayList<MathToken> tokens = new ArrayList<>();
 
-        tokens.add(new MathToken("2"));
-        tokens.add(new MathToken("+"));
-        tokens.add(new MathToken("2"));
+        String[] tokenStrings = expression.split(" ");
+
+        for (String tokenString : tokenStrings) {
+            tokens.add(new MathToken(tokenString));
+        }
 
         return tokens;
 

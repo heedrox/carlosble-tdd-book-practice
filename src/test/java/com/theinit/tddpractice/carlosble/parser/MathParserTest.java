@@ -3,13 +3,17 @@ package com.theinit.tddpractice.carlosble.parser;
 import com.theinit.tddpractice.carlosble.parser.MathParser;
 import com.theinit.tddpractice.carlosble.parser.MathToken;
 import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static junitparams.JUnitParamsRunner.$;
 
 
 /**
@@ -19,13 +23,23 @@ import java.util.List;
 public class MathParserTest {
 
     @Test
-    public void parsesBinaryTokens() {
+    @Parameters(method = "binaryParameters")
+    public void parsesBinaryTokens(String expression, MathToken[] expectedTokens) {
 
         MathParser parser = new MathParser();
 
-        List<MathToken> tokens = parser.getTokens("2 + 2");
+        List<MathToken> tokens = parser.getTokens(expression);
 
-        Assert.assertArrayEquals("tokens are 2, +, 2", arrayOfTokens("2", "+", "2"), tokens.toArray());
+        Assert.assertArrayEquals(expectedTokens , tokens.toArray());
+    }
+
+    private Object[] binaryParameters() {
+        return new Object[]{
+                new Object[]{"2 + 2", arrayOfTokens("2", "+", "2")},
+                new Object[]{"3 - 4", arrayOfTokens("3", "-", "4")},
+                new Object[]{"31 * 10", arrayOfTokens("31", "*", "10")},
+                new Object[]{"27 / 3", arrayOfTokens("27", "/", "3")},
+        };
     }
 
     private MathToken[] arrayOfTokens(String ... args) {
