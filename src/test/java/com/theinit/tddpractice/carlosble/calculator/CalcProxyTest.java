@@ -15,17 +15,23 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class CalcProxyTest {
 
-    private int calculatorMinValue = -100;
-    private int calculatorMaxValue = 100;
+    private int minValue = -100;
+    private int maxValue = 100;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    Calculator calculator;
+    private Calculator calculator;
+    private Validator validator;
 
     @Before
     public void setupCalculator() {
         this.calculator = new Calculator();
+    }
+
+    @Before
+    public void setupValidator() {
+        this.validator = new Validator();
     }
 
 
@@ -33,8 +39,8 @@ public class CalcProxyTest {
     @Parameters({"2, 2, 4",
                  "3, 4, 7" })
     public void addsTwoNumbers(int arg1, int arg2, int expectedResult) throws OverflowException  {
-        Calculator calculator = new Calculator();
-        CalcProxy calcProxy = new CalcProxy(calculator);
+        validator.setLimits(minValue, maxValue);
+        CalcProxy calcProxy = new CalcProxy(calculator, validator);
 
         int result = calcProxy.binaryOperation(Calculator.ADD, arg1, arg2);
 
@@ -46,8 +52,8 @@ public class CalcProxyTest {
                  "3, 4, -1",
                  "5, 3, 2"})
     public void substractsTwoNumbers(int arg1, int arg2, int expectedResult) throws OverflowException  {
-        Calculator calculator = new Calculator();
-        CalcProxy calcProxy = new CalcProxy(calculator);
+        validator.setLimits(minValue, maxValue);
+        CalcProxy calcProxy = new CalcProxy(calculator, validator);
 
         int result = calcProxy.binaryOperation(Calculator.SUBSTRACT, arg1, arg2);
 
@@ -56,47 +62,46 @@ public class CalcProxyTest {
 
 
 
+    @Test
+    public void resultExceedingMaxValue() throws OverflowException {
+        validator.setLimits(minValue, maxValue);
+        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+
+        thrown.expect(OverflowException.class);
+
+        calcProxy.binaryOperation(Calculator.SUBSTRACT, 50, 150);
+    }
+
     @Test()
-    public void addExcedingMaxValue() throws OverflowException {
+    public void resultExceedingMinValue() throws OverflowException {
+        validator.setLimits(minValue, maxValue);
+        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+
         thrown.expect(OverflowException.class);
 
-        calculator.add(50, 150);
-    }
-
-    @Test()
-    public void substractExcedingMinValue() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.substract(10, 150);
+        calcProxy.binaryOperation(Calculator.SUBSTRACT, 10, 150);
     }
 
     @Test
-    public void addWhenArgumentsExceedLimits() throws OverflowException {
+    public void argumentsExceedLimits() throws OverflowException {
+        validator.setLimits(minValue, maxValue);
+        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+
         thrown.expect(OverflowException.class);
 
-        calculator.add(calculatorMaxValue + 1, calculatorMinValue - 1);
+        calcProxy.binaryOperation(Calculator.SUBSTRACT, maxValue+1, minValue-1);
     }
 
     @Test
-    public void addWhenArgumentsExceedLimitsOtherWay() throws OverflowException {
+    public void argumentsExceedLimitsOtherWay() throws OverflowException {
+        validator.setLimits(minValue, maxValue);
+        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+
         thrown.expect(OverflowException.class);
 
-        calculator.add(calculatorMinValue - 1 , calculatorMaxValue + 1);
+        calcProxy.binaryOperation(Calculator.SUBSTRACT, minValue-1, maxValue+1);
     }
 
-    @Test
-    public void substractWhenArgumentsExceedLimits() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.substract(calculatorMaxValue + 1, calculatorMinValue - 1);
-    }
-
-    @Test
-    public void substractWhenArgumentsExceedLimitsOtherWay() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.substract(calculatorMinValue - 1 , calculatorMaxValue + 1);
-    }
 
 
 }
