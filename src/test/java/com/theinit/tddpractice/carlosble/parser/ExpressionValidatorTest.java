@@ -14,7 +14,8 @@ import static org.junit.Assert.*;
 public class ExpressionValidatorTest {
 
     @Test
-    @Parameters({"2 + 3"})
+    @Parameters({"2 + 3",
+    "253 + 24"})
     public void validExpressions(String expression) {
         ExpressionValidator expressionValidator = new ExpressionValidator();
 
