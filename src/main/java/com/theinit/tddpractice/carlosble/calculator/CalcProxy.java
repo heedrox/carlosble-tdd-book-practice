@@ -7,9 +7,6 @@ public class CalcProxy {
     Calculator calculator;
     Validator validator;
 
-    int minValue;
-    int maxValue;
-
     public CalcProxy(Calculator calculator, Validator validator) {
         this.calculator = calculator;
         this.validator = validator;
