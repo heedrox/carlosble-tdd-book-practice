@@ -18,4 +18,13 @@ public class MathTokenTest {
         assertEquals("tokens should be considered equal", tokenA, tokenB);
     }
 
+
+    @Test
+    public void isStringizable() throws Exception {
+
+        MathToken tokenA = new MathToken("TOKEN");
+
+        assertEquals(tokenA.toString(), "TOKEN");
+    }
+
 }

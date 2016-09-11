@@ -19,7 +19,10 @@ public class MathToken {
         MathToken mathToken = (MathToken) o;
 
         return stringToken != null ? stringToken.equals(mathToken.stringToken) : mathToken.stringToken == null;
-
     }
 
+    @Override
+    public String toString() {
+        return stringToken;
+    }
 }
