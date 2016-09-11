@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ExpressionValidator {
 
-    String VALID_REGEX = "\\d* *[+\\-*/] *\\d*";
+    String VALID_REGEX = "^\\d+((\\s*)[+\\-*/](\\s*)\\d+)+$";
 
     public boolean isValid(String expression) {
 

@@ -19,23 +19,30 @@ public class ExpressionValidatorTest {
     "2 * 4",
     "2 - 3",
     "2 / 2",
-    "2  +    4"})
+    "2  +    4",
+    "2-9",
+    "2 + 4 - 3"})
     public void validExpressions(String expression) {
         ExpressionValidator expressionValidator = new ExpressionValidator();
 
         boolean isValid = expressionValidator.isValid(expression);
 
-        assertTrue(isValid);
+        assertTrue("valid "+expression, isValid);
     }
 
     @Test
-    @Parameters({"2 +\\, 3"})
+    @Parameters({"2 +\\, 3",
+            "2a7",
+    "2 -a 4",
+    "2 -+ 3",
+    "+ + 7",
+    "2 + 7 - 2 a 3 b"})
     public void invalidExpressions(String expression) {
         ExpressionValidator expressionValidator = new ExpressionValidator();
 
         boolean isValid = expressionValidator.isValid(expression);
 
-        assertFalse(isValid);
+        assertFalse("not valid "+expression, isValid);
     }
 
 }
