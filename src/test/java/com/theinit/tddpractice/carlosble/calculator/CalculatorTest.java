@@ -8,6 +8,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.cglib.core.ReflectUtils;
+
 
 /**
  * Created by INIT SERVICES on 11/9/16.
@@ -26,6 +29,7 @@ public class CalculatorTest {
     @Before
     public void setupCalculator() {
         this.calculator = new Calculator(calculatorMinValue, calculatorMaxValue);
+        this.calculator.setValidator(new Validator(calculatorMinValue, calculatorMaxValue));
     }
 
     @Test
@@ -86,5 +90,18 @@ public class CalculatorTest {
         thrown.expect(OverflowException.class);
 
         calculator.substract(calculatorMinValue - 1 , calculatorMaxValue + 1);
+    }
+
+    @Test
+    public void whenSubstractingValidatorIsUsed() throws OverflowException  {
+        int arg1 = 10;
+        int arg2 = 20;
+
+        Validator mockValidator = Mockito.mock(Validator.class);
+        calculator.setValidator(mockValidator);
+
+
+        calculator.substract(arg1, arg2);
+        Mockito.verify(mockValidator).validateArgs(arg1, arg2);
     }
 }
