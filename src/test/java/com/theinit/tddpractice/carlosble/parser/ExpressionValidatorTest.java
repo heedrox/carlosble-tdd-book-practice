@@ -15,7 +15,10 @@ public class ExpressionValidatorTest {
 
     @Test
     @Parameters({"2 + 3",
-    "253 + 24"})
+    "253 + 24",
+    "2 * 4",
+    "2 - 3",
+    "2 / 2"})
     public void validExpressions(String expression) {
         ExpressionValidator expressionValidator = new ExpressionValidator();
 
