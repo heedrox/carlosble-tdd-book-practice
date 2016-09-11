@@ -61,10 +61,17 @@ public class CalculatorTest {
     }
 
     @Test
-    public void addWhenArgumentsExceedUpperLimits() throws OverflowException {
+    public void addWhenArgumentsExceedLimits() throws OverflowException {
         thrown.expect(OverflowException.class);
 
         calculator.add(calculatorMaxValue + 1, calculatorMinValue - 1);
+    }
+
+    @Test
+    public void addWhenArgumentsExceedLimitsOtherWay() throws OverflowException {
+        thrown.expect(OverflowException.class);
+
+        calculator.add(calculatorMinValue - 1 , calculatorMaxValue + 1);
     }
 
 }
