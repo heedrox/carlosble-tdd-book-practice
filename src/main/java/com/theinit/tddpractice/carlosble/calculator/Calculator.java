@@ -8,29 +8,21 @@ public class Calculator {
     public static final int ADD = 1;
     public static final int SUBSTRACT = 2;
 
-    int minValue;
-    int maxValue;
-
     public Calculator() {
     }
 
 
-    public Calculator(int minValue, int maxValue) {
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-    }
-
-    public int add(int operand1, int operand2) throws OverflowException {
+    public int add(int operand1, int operand2)  {
 
         int result = operand1 + operand2;
 
-        if (result > maxValue) throw new OverflowException("result over maxValue");
+        //if (result > maxValue) throw new OverflowException("result over maxValue");
         return result;
     }
 
-    public int substract(int operand1, int operand2) throws OverflowException {
+    public int substract(int operand1, int operand2) {
         int result = operand1 - operand2;
-        if (result < this.minValue) throw new OverflowException("result under minValue");
+        //if (result < this.minValue) throw new OverflowException("result under minValue");
         return result;
     }
 

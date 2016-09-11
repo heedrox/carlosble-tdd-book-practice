@@ -18,9 +18,6 @@ import org.mockito.cglib.core.ReflectUtils;
 @RunWith(JUnitParamsRunner.class)
 public class CalculatorTest {
 
-    private int calculatorMinValue = -100;
-    private int calculatorMaxValue = 100;
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -28,68 +25,19 @@ public class CalculatorTest {
 
     @Before
     public void setupCalculator() {
-        this.calculator = new Calculator(calculatorMinValue, calculatorMaxValue);
+        this.calculator = new Calculator();
     }
 
     @Test
-    @Parameters({"2, 2, 4",
-                 "3, 4, 7" })
-    public void addsTwoNumbers(int operand1, int operand2, int expectedResult) throws OverflowException{
-        int result = calculator.add(operand1,operand2);
-
-        Assert.assertEquals("The sum of "+operand1+" and "+operand2+" should be "+expectedResult, expectedResult, result);
+    public void calculatorAdds() {
+        int result = calculator.add(2,3);
+        Assert.assertEquals("2 + 3 = 5", 5, result);
     }
 
     @Test
-    @Parameters({"5, 3,  2",
-                 "3, 5, -2" })
-    public void substractsTwoNumbers(int operand1, int operand2, int expectedResult) throws OverflowException {
-        int result = calculator.substract(operand1,operand2);
-
-        Assert.assertEquals("The result of substracting "+operand1+" minus "+operand2+" should be "+expectedResult, expectedResult, result);
+    public void calculatorSubstracts() {
+        int result = calculator.substract(2,3);
+        Assert.assertEquals("2 - 3 = -1", -1, result);
     }
-
-    @Test()
-    public void addExcedingMaxValue() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.add(50, 150);
-    }
-
-    @Test()
-    public void substractExcedingMinValue() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.substract(10, 150);
-    }
-
-    @Test
-    public void addWhenArgumentsExceedLimits() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.add(calculatorMaxValue + 1, calculatorMinValue - 1);
-    }
-
-    @Test
-    public void addWhenArgumentsExceedLimitsOtherWay() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.add(calculatorMinValue - 1 , calculatorMaxValue + 1);
-    }
-
-    @Test
-    public void substractWhenArgumentsExceedLimits() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.substract(calculatorMaxValue + 1, calculatorMinValue - 1);
-    }
-
-    @Test
-    public void substractWhenArgumentsExceedLimitsOtherWay() throws OverflowException {
-        thrown.expect(OverflowException.class);
-
-        calculator.substract(calculatorMinValue - 1 , calculatorMaxValue + 1);
-    }
-
 
 }
