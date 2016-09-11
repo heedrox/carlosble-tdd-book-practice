@@ -17,7 +17,9 @@ public class Calculator {
         return operand1 + operand2;
     }
 
-    public int substract(int operand1, int operand2) {
-        return operand1 - operand2;
+    public int substract(int operand1, int operand2) throws OverflowException {
+        int result = operand1 - operand2;
+        if (result < this.minValue) throw new OverflowException("result under minValue");
+        return result;
     }
 }
