@@ -14,7 +14,11 @@ public class Calculator {
     }
 
     public int add(int operand1, int operand2) throws OverflowException {
+        if (operand1 > maxValue) { throw new OverflowException("argument 1 greater than max value"); }
+        if (operand2 < minValue) { throw new OverflowException("argument 2 less than min value"); }
+
         int result = operand1 + operand2;
+        
         if (result > maxValue) throw new OverflowException("result over maxValue");
         return result;
     }

@@ -15,6 +15,9 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class CalculatorTest {
 
+    int calculatorMinValue = -100;
+    int calculatorMaxValue = 100;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -22,7 +25,7 @@ public class CalculatorTest {
 
     @Before
     public void setupCalculator() {
-        this.calculator = new Calculator(-100, 100);
+        this.calculator = new Calculator(calculatorMinValue, calculatorMaxValue);
     }
 
     @Test
@@ -55,6 +58,13 @@ public class CalculatorTest {
         thrown.expect(OverflowException.class);
 
         calculator.substract(10, 150);
+    }
+
+    @Test
+    public void addWhenArgumentsExceedUpperLimits() throws OverflowException {
+        thrown.expect(OverflowException.class);
+
+        calculator.add(calculatorMaxValue + 1, calculatorMinValue - 1);
     }
 
 }
