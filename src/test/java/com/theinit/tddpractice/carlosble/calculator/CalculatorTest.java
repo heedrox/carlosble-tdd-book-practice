@@ -18,8 +18,8 @@ import org.mockito.cglib.core.ReflectUtils;
 @RunWith(JUnitParamsRunner.class)
 public class CalculatorTest {
 
-    int calculatorMinValue = -100;
-    int calculatorMaxValue = 100;
+    private int calculatorMinValue = -100;
+    private int calculatorMaxValue = 100;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -93,15 +93,19 @@ public class CalculatorTest {
     }
 
     @Test
-    public void whenSubstractingValidatorIsUsed() throws OverflowException  {
+    public void coordinationBetweenCalculatorAndValidator() throws OverflowException  {
         int arg1 = 10;
         int arg2 = 20;
-
         Validator mockValidator = Mockito.mock(Validator.class);
-        calculator.setValidator(mockValidator);
+        Calculator mockCalculator = Mockito.mock(Calculator.class);
+        CalcProxy calcProxy = new CalcProxy(mockCalculator, mockValidator, calculatorMinValue, calculatorMaxValue);
 
+        calcProxy.binaryOperation(Calculator.ADD, arg1, arg2);
 
-        calculator.substract(arg1, arg2);
+        Mockito.verify(mockValidator).setLimits(calculatorMinValue, calculatorMaxValue);
         Mockito.verify(mockValidator).validateArgs(arg1, arg2);
+        Mockito.verify(mockCalculator).add(arg1, arg2);
     }
+
+
 }

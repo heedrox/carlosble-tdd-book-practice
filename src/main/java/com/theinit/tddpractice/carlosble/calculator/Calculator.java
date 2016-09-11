@@ -5,6 +5,8 @@ package com.theinit.tddpractice.carlosble.calculator;
  */
 public class Calculator {
 
+    public static final int ADD = 1;
+
     int minValue;
     int maxValue;
     Validator validator;

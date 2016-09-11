@@ -19,4 +19,7 @@ public class Validator {
         if (operand2 < minValue) { throw new OverflowException("argument 2 less than min value"); }
         if (operand2 > maxValue) { throw new OverflowException("argument 2 greater than max value"); }
     }
+
+    public void setLimits(int calculatorMinValue, int calculatorMaxValue) {
+    }
 }
