@@ -1,9 +1,12 @@
 package com.theinit.tddpractice.carlosble.parser;
 
+import com.theinit.tddpractice.carlosble.calculator.OverflowException;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -16,15 +19,33 @@ import java.util.List;
 @RunWith(JUnitParamsRunner.class)
 public class MathLexterTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+
     @Test
     @Parameters(method = "binaryParameters")
-    public void parsesBinaryTokens(String expression, MathToken[] expectedTokens) {
-        MathLexer parser = new MathLexer();
+    public void parsesBinaryTokens(String expression, MathToken[] expectedTokens) throws InvalidOperationException {
+        ExpressionValidator expressionValidator = new ExpressionValidator();
+        MathLexer lexer = new MathLexer(expressionValidator);
 
-        List<MathToken> tokens = parser.getTokens(expression);
+        List<MathToken> tokens = lexer.getTokens(expression);
 
         Assert.assertArrayEquals(expectedTokens , tokens.toArray());
     }
+
+    @Test
+    public void throwsErrorIfWrongBinaryTokens() throws InvalidOperationException {
+        String invalidExpression = "2 - 1++ 3";
+        ExpressionValidator expressionValidator = new ExpressionValidator();
+        MathLexer lexer = new MathLexer(expressionValidator);
+
+        thrown.expect(InvalidOperationException.class);
+
+        List<MathToken> tokens = lexer.getTokens(invalidExpression);
+    }
+
+
 
     private Object[] binaryParameters() {
         return new Object[]{

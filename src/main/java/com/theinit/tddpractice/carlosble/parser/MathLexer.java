@@ -8,7 +8,17 @@ import java.util.List;
  */
 public class MathLexer {
 
-    public List<MathToken> getTokens(String expression) {
+    private ExpressionValidator expressionValidator;
+
+    public MathLexer(ExpressionValidator expressionValidator) {
+        this.expressionValidator = expressionValidator;
+    }
+
+    public List<MathToken> getTokens(String expression) throws InvalidOperationException {
+
+        if (!expressionValidator.isValid(expression)) {
+            throw new InvalidOperationException("Expression not valid: "+expression);
+        }
 
         ArrayList<MathToken> tokens = new ArrayList<>();
 
