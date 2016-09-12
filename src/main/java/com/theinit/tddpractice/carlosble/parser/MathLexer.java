@@ -16,20 +16,27 @@ public class MathLexer {
 
     public List<MathToken> getTokens(String expression) throws InvalidOperationException {
 
+        throwExceptionIfNotValid(expression);
+
+        String[] tokenStrings = expression.split(" +");
+
+        return getMathTokenList(tokenStrings);
+
+    }
+
+    private void throwExceptionIfNotValid(String expression) throws InvalidOperationException {
         if (!expressionValidator.isValid(expression)) {
             throw new InvalidOperationException("Expression not valid: "+expression);
         }
+    }
 
+    private ArrayList<MathToken> getMathTokenList(String[] tokenStrings) {
         ArrayList<MathToken> tokens = new ArrayList<>();
-
-        String[] tokenStrings = expression.split(" +");
 
         for (String tokenString : tokenStrings) {
             tokens.add(new MathToken(tokenString));
         }
-
         return tokens;
-
     }
 
 }
