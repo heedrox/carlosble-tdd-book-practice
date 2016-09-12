@@ -40,7 +40,8 @@ public class ExpressionValidatorTest {
             "+ + 7",
             "++7",
             "4++7",
-            "2 + 7 - 2 a 3 b"})
+            "2 + 7 - 2 a 3 b",
+            "*45-2-2"})
     public void invalidExpressions(String expression) {
         ExpressionValidator expressionValidator = new ExpressionValidator();
 
