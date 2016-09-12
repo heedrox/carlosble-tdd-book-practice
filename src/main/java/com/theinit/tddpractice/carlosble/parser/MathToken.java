@@ -25,4 +25,8 @@ public class MathToken {
     public String toString() {
         return stringToken;
     }
+
+    public int intValue() {
+        return Integer.valueOf(stringToken);
+    }
 }
