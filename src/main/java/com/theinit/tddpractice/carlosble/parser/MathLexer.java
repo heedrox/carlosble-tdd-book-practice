@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by INIT SERVICES on 11/9/16.
  */
-public class MathParser {
+public class MathLexer {
 
     public List<MathToken> getTokens(String expression) {
 

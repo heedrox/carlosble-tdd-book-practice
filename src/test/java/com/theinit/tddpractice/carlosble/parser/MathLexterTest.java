@@ -1,32 +1,25 @@
 package com.theinit.tddpractice.carlosble.parser;
 
-import com.theinit.tddpractice.carlosble.parser.MathParser;
-import com.theinit.tddpractice.carlosble.parser.MathToken;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static junitparams.JUnitParamsRunner.$;
 
 
 /**
  * Created by INIT SERVICES on 11/9/16.
  */
 @RunWith(JUnitParamsRunner.class)
-public class MathParserTest {
+public class MathLexterTest {
 
     @Test
     @Parameters(method = "binaryParameters")
     public void parsesBinaryTokens(String expression, MathToken[] expectedTokens) {
-
-        MathParser parser = new MathParser();
+        MathLexer parser = new MathLexer();
 
         List<MathToken> tokens = parser.getTokens(expression);
 
