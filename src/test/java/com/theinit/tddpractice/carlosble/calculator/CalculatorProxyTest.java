@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
  * Created by INIT SERVICES on 11/9/16.
  */
 @RunWith(JUnitParamsRunner.class)
-public class CalcProxyTest {
+public class CalculatorProxyTest {
 
     private int minValue = -100;
     private int maxValue = 100;
@@ -33,7 +33,7 @@ public class CalcProxyTest {
                  "3, 4, 7" })
     public void addsTwoNumbers(int arg1, int arg2, int expectedResult) throws OverflowException  {
         Validator validator = new Validator(minValue, maxValue);
-        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
 
         int result = calcProxy.binaryOperation(Calculator.ADD, arg1, arg2);
 
@@ -46,7 +46,7 @@ public class CalcProxyTest {
                  "5, 3, 2"})
     public void substractsTwoNumbers(int arg1, int arg2, int expectedResult) throws OverflowException  {
         Validator validator = new Validator(minValue, maxValue);
-        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
 
         int result = calcProxy.binaryOperation(Calculator.SUBSTRACT, arg1, arg2);
 
@@ -58,7 +58,7 @@ public class CalcProxyTest {
     @Test
     public void resultExceedingMaxValue() throws OverflowException {
         Validator validator = new Validator(minValue, maxValue);
-        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
 
         thrown.expect(OverflowException.class);
 
@@ -68,7 +68,7 @@ public class CalcProxyTest {
     @Test()
     public void resultExceedingMinValue() throws OverflowException {
         Validator validator = new Validator(minValue, maxValue);
-        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
 
         thrown.expect(OverflowException.class);
 
@@ -78,7 +78,7 @@ public class CalcProxyTest {
     @Test
     public void argumentsExceedLimits() throws OverflowException {
         Validator validator = new Validator(minValue, maxValue);
-        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
 
         thrown.expect(OverflowException.class);
 
@@ -88,7 +88,7 @@ public class CalcProxyTest {
     @Test
     public void argumentsExceedLimitsOtherWay() throws OverflowException {
         Validator validator = new Validator(minValue, maxValue);
-        CalcProxy calcProxy = new CalcProxy(calculator, validator);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
 
         thrown.expect(OverflowException.class);
 
