@@ -22,7 +22,7 @@ public class MathLexer {
 
         ArrayList<MathToken> tokens = new ArrayList<>();
 
-        String[] tokenStrings = expression.split(" ");
+        String[] tokenStrings = expression.split(" +");
 
         for (String tokenString : tokenStrings) {
             tokens.add(new MathToken(tokenString));

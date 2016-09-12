@@ -24,7 +24,7 @@ public class MathLexterTest {
 
 
     @Test
-    @Parameters(method = "binaryParameters")
+    @Parameters(method = "simpleBinaryParameters, complexBinaryParameters")
     public void parsesBinaryTokens(String expression, MathToken[] expectedTokens) throws InvalidOperationException {
         ExpressionValidator expressionValidator = new ExpressionValidator();
         MathLexer lexer = new MathLexer(expressionValidator);
@@ -47,12 +47,18 @@ public class MathLexterTest {
 
 
 
-    private Object[] binaryParameters() {
+    private Object[] simpleBinaryParameters() {
         return new Object[]{
                 new Object[]{"2 + 2", arrayOfTokens("2", "+", "2")},
                 new Object[]{"3 - 4", arrayOfTokens("3", "-", "4")},
                 new Object[]{"31 * 10", arrayOfTokens("31", "*", "10")},
                 new Object[]{"27 / 3", arrayOfTokens("27", "/", "3")},
+        };
+    }
+
+    private Object[] complexBinaryParameters() {
+        return new Object[]{
+                new Object[]{"5 -   88", arrayOfTokens("5", "-", "88")},
         };
     }
 
