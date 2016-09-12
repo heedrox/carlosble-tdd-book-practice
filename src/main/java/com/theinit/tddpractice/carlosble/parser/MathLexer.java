@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by INIT SERVICES on 11/9/16.
  */
-public class MathLexer {
+public class MathLexer implements ILexer {
 
     private ExpressionValidator expressionValidator;
 
@@ -14,6 +14,7 @@ public class MathLexer {
         this.expressionValidator = expressionValidator;
     }
 
+    @Override
     public List<MathToken> getTokens(String expression) throws InvalidOperationException {
 
         throwExceptionIfNotValid(expression);
