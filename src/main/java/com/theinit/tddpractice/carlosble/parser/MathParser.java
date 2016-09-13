@@ -22,7 +22,18 @@ public class MathParser {
 
     public int processExpression(String s) throws OverflowException, InvalidOperationException {
         List<MathToken> tokens = lexer.getTokens(s);
-        int result = calcProxy.binaryOperation(Calculator.ADD, tokens.get(0).intValue(), tokens.get(2).intValue());
-        return result;
+
+        int currentValue = tokens.get(0).intValue();
+        int currentOperator = 0;
+        for (int i=1; i<tokens.size();i++) {
+            if (tokens.get(i).isOperator()) {
+                currentOperator = tokens.get(i).getOperator();
+            } else {
+                currentValue = calcProxy.binaryOperation(currentOperator, currentValue, tokens.get(i).intValue());
+            }
+
+        }
+
+        return currentValue;
     }
 }
