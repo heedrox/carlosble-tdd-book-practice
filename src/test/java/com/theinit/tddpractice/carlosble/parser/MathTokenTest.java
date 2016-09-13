@@ -1,5 +1,6 @@
 package com.theinit.tddpractice.carlosble.parser;
 
+import com.theinit.tddpractice.carlosble.calculator.Calculator;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -56,6 +57,25 @@ public class MathTokenTest {
         MathToken token = new MathToken(operator);
 
         assertFalse("*"+operator+"* should not be an operator", token.isOperator());
+    }
+
+    @Test
+    @Parameters(method = "operators")
+    public void knowsOperators(String operatorString, int expectedOperatorMethod) throws Exception {
+
+        MathToken token = new MathToken(operatorString);
+        int operatorMethod = token.getOperator();
+
+        assertEquals("Operator "+operatorString+" should be linked to operation "+expectedOperatorMethod, expectedOperatorMethod, operatorMethod);
+    }
+
+    private Object[] operators() {
+        return new Object[]{
+                new Object[]{"+", Calculator.ADD},
+                new Object[]{"-", Calculator.SUBSTRACT},
+                new Object[]{"*", Calculator.MULTIPLY},
+                new Object[]{"/", Calculator.DIVIDE},
+        };
     }
 
 }

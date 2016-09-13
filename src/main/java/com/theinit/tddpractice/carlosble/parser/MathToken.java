@@ -1,5 +1,7 @@
 package com.theinit.tddpractice.carlosble.parser;
 
+import com.theinit.tddpractice.carlosble.calculator.Calculator;
+
 /**
  * Created by INIT SERVICES on 11/9/16.
  */
@@ -35,6 +37,12 @@ public class MathToken {
     }
 
     public int getOperator() {
+        switch (this.stringToken) {
+            case "+" : return Calculator.ADD;
+            case "-" : return Calculator.SUBSTRACT;
+            case "*" : return Calculator.MULTIPLY;
+            case "/" : return Calculator.DIVIDE;
+        }
         return 0;
     }
 }
