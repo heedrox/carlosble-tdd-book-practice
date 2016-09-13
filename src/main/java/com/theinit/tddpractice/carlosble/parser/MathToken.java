@@ -29,4 +29,12 @@ public class MathToken {
     public int intValue() {
         return Integer.valueOf(stringToken);
     }
+
+    public boolean isOperator() {
+        return ("+-*/".indexOf(this.stringToken))>=0;
+    }
+
+    public int getOperator() {
+        return 0;
+    }
 }

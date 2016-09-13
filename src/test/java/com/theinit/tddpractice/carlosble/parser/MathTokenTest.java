@@ -40,4 +40,22 @@ public class MathTokenTest {
         assertEquals(token.intValue(), intValue);
     }
 
+    @Test
+    @Parameters({"+", "-", "*", "/"})
+    public void knowsThatAreOperators(String operator) throws Exception {
+
+        MathToken token = new MathToken(operator);
+
+        assertTrue(token.isOperator());
+    }
+
+    @Test
+    @Parameters({"2", "49", "L"})
+    public void knowsThatAreNotOperators(String operator) throws Exception {
+
+        MathToken token = new MathToken(operator);
+
+        assertFalse("*"+operator+"* should not be an operator", token.isOperator());
+    }
+
 }
