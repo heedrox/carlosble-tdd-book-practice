@@ -54,6 +54,20 @@ public class MathParserComplexExpressionsTest {
         Assert.assertEquals(4, result);
     }
 
+    @Test
+    public void processExpressionWithPrecedence() throws OverflowException, InvalidOperationException {
+        Mockito.when(mockLexer.getTokens("4 + 6 / 2")).thenReturn(aListOfTokens("4", "+", "6", "/", "2"));
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.DIVIDE, 6, 2)).thenReturn(3);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 4, 3)).thenReturn(7);
+        MathParser parser = new MathParser(mockCalcProxy, mockLexer);
+
+        int result = parser.processExpression("4 + 6 / 2");
+
+        Assert.assertEquals(7, result);
+    }
+
+
+
     private List<MathToken> aListOfTokens(String ... args) {
         ArrayList<MathToken> tokens = new ArrayList<>();
         for (String stringToken: args) {

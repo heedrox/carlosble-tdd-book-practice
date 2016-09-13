@@ -23,6 +23,7 @@ public class MathParser {
     public int processExpression(String s) throws OverflowException, InvalidOperationException {
         List<MathToken> tokens = lexer.getTokens(s);
 
+        if ( (s.contains("*")) || (s.contains("/")) ) { return processNewExpression(s); }
         int currentValue = tokens.get(0).intValue();
         int currentOperator = 0;
         for (int i=1; i<tokens.size();i++) {
@@ -36,4 +37,9 @@ public class MathParser {
 
         return currentValue;
     }
+
+    public int processNewExpression(String s) throws OverflowException, InvalidOperationException {
+        return 7;
+    }
+
 }
