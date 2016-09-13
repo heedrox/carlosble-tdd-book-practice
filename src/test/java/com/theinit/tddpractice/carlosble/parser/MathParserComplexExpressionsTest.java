@@ -20,6 +20,9 @@ public class MathParserComplexExpressionsTest {
     private String TWO_PLUS_THREE_PLUS_FIVE_STRING = "2 + 3 + 5";
     private List<MathToken> TWO_PLUS_THREE_PLUS_FIVE_TOKENS = aListOfTokens("2", "+", "3", "+", "5");
 
+    private String TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_STRING = "2 + 3 + 5 - 6";
+    private List<MathToken> TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_TOKENS = aListOfTokens("2", "+", "3", "+", "5", "-", "6");
+
     @Before
     public void setUpMocks() throws InvalidOperationException, OverflowException {
         mockLexer = Mockito.mock(ILexer.class);
@@ -36,6 +39,19 @@ public class MathParserComplexExpressionsTest {
         int result = parser.processExpression(TWO_PLUS_THREE_PLUS_FIVE_STRING);
 
         Assert.assertEquals(10, result);
+    }
+
+    @Test
+    public void processExpressionWithThreeOperands() throws OverflowException, InvalidOperationException {
+        Mockito.when(mockLexer.getTokens(TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_STRING)).thenReturn(TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_TOKENS);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 2, 3)).thenReturn(5);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 5, 5)).thenReturn(10);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.SUBSTRACT, 10, 6)).thenReturn(4);
+        MathParser parser = new MathParser(mockCalcProxy, mockLexer);
+
+        int result = parser.processExpression(TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_STRING);
+
+        Assert.assertEquals(4, result);
     }
 
     private List<MathToken> aListOfTokens(String ... args) {
