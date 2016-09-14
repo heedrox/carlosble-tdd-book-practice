@@ -23,7 +23,7 @@ public class MathParser {
     public int processExpression(String s) throws OverflowException, InvalidOperationException {
         List<MathToken> tokens = lexer.getTokens(s);
 
-        if ( (s.contains("*")) || (s.contains("/")) ) { return processNewExpression(s); }
+        if ( (s.contains("*")) || (s.contains("/")) ) { return processNewExpression(s); } //TODO remove when finished
         int currentValue = tokens.get(0).intValue();
         int currentOperator = 0;
         for (int i=1; i<tokens.size();i++) {
@@ -39,7 +39,35 @@ public class MathParser {
     }
 
     public int processNewExpression(String s) throws OverflowException, InvalidOperationException {
-        return 7;
+        List<MathToken> tokens = lexer.getTokens(s);
+
+        int currentValue = 7;
+//        int numToken = getNextTokenOperatorToCalculate(tokens);
+//        int currentValue = tokens.get(0).intValue();
+//        int currentOperator = 0;
+//        for (int i=1; i<tokens.size();i++) {
+//            if (tokens.get(i).isOperator()) {
+//                currentOperator = tokens.get(i).getOperator();
+//            } else {
+//                currentValue = calcProxy.binaryOperation(currentOperator, currentValue, tokens.get(i).intValue());
+//            }
+//
+//        }
+
+        return currentValue;
+    }
+
+    public int getNextTokenOperatorToCalculate(List<MathToken> tokens) {
+        String operators = "/*-+";
+        for (int i=0;i<operators.length();i++) {
+            int position = findInTokens(tokens, operators.charAt(i));
+            if (position>0) return position;
+        }
+        return 0;
+    }
+
+    private int findInTokens(List<MathToken> tokens, char operator) {
+        return tokens.indexOf(new MathToken(operator+""));
     }
 
 }

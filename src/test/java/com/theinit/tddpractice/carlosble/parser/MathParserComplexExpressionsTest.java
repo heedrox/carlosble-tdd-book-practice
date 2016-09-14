@@ -1,9 +1,13 @@
 package com.theinit.tddpractice.carlosble.parser;
 
 import com.theinit.tddpractice.carlosble.calculator.*;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.converters.Param;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -12,6 +16,7 @@ import java.util.List;
 /**
  * Created by INIT SERVICES on 12/9/16.
  */
+@RunWith(JUnitParamsRunner.class)
 public class MathParserComplexExpressionsTest {
 
     private ILexer mockLexer;
@@ -66,6 +71,37 @@ public class MathParserComplexExpressionsTest {
         Assert.assertEquals(7, result);
     }
 
+//    @Test
+//    public void processExpressionWithPrecedenceMoreComplex() throws OverflowException, InvalidOperationException {
+//        Mockito.when(mockLexer.getTokens("5 + 4 * 2 / 2")).thenReturn(aListOfTokens("5", "+", "4", "*", "2", "/", "2"));
+//        Mockito.when(mockCalcProxy.binaryOperation(Calculator.MULTIPLY, 4, 2)).thenReturn(8);
+//        Mockito.when(mockCalcProxy.binaryOperation(Calculator.DIVIDE, 8, 2)).thenReturn(4);
+//        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 5, 4)).thenReturn(9);
+//        MathParser parser = new MathParser(mockCalcProxy, mockLexer);
+//
+//        int result = parser.processExpression("5 + 4 * 2 / 2");
+//
+//        Assert.assertEquals(9, result);
+//    }
+
+    @Test
+    @Parameters(method = "tokensForPrecedenceOperator")
+    public void knowsNextOperatorByPrecedence(List<MathToken> tokens, int expectedOperator) throws OverflowException, InvalidOperationException {
+        MathParser parser = new MathParser(mockCalcProxy, mockLexer);
+
+        int operator = parser.getNextTokenOperatorToCalculate(tokens);
+
+        Assert.assertEquals(expectedOperator, operator);
+    }
+
+    private Object[] tokensForPrecedenceOperator() {
+        return new Object[]{
+                new Object[]{aListOfTokens("2", "+", "4", "/", "9"), 3 },
+                new Object[]{aListOfTokens("2", "/", "2", "+", "1"), 1 },
+                new Object[]{aListOfTokens("2", "+", "4", "/", "9", "*", "8"), 3 },
+                new Object[]{aListOfTokens("2", "+", "4", "-", "9", "*", "8"), 5 }
+        };
+    }
 
 
     private List<MathToken> aListOfTokens(String ... args) {
