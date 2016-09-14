@@ -71,18 +71,18 @@ public class MathParserComplexExpressionsTest {
         Assert.assertEquals(7, result);
     }
 
-//    @Test
-//    public void processExpressionWithPrecedenceMoreComplex() throws OverflowException, InvalidOperationException {
-//        Mockito.when(mockLexer.getTokens("5 + 4 * 2 / 2")).thenReturn(aListOfTokens("5", "+", "4", "*", "2", "/", "2"));
-//        Mockito.when(mockCalcProxy.binaryOperation(Calculator.MULTIPLY, 4, 2)).thenReturn(8);
-//        Mockito.when(mockCalcProxy.binaryOperation(Calculator.DIVIDE, 8, 2)).thenReturn(4);
-//        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 5, 4)).thenReturn(9);
-//        MathParser parser = new MathParser(mockCalcProxy, mockLexer);
-//
-//        int result = parser.processExpression("5 + 4 * 2 / 2");
-//
-//        Assert.assertEquals(9, result);
-//    }
+    @Test
+    public void processExpressionWithPrecedenceMoreComplex() throws OverflowException, InvalidOperationException {
+        Mockito.when(mockLexer.getTokens("5 + 4 * 2 / 2")).thenReturn(aListOfTokens("5", "+", "4", "*", "2", "/", "2"));
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.DIVIDE, 2, 2)).thenReturn(1);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.MULTIPLY, 4, 1)).thenReturn(4);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 5, 4)).thenReturn(9);
+        MathParser parser = new MathParser(mockCalcProxy, mockLexer);
+
+        int result = parser.processExpression("5 + 4 * 2 / 2");
+
+        Assert.assertEquals(9, result);
+    }
 
     @Test
     @Parameters(method = "tokensForPrecedenceOperator")
@@ -93,6 +93,7 @@ public class MathParserComplexExpressionsTest {
 
         Assert.assertEquals(expectedOperator, operator);
     }
+
 
     private Object[] tokensForPrecedenceOperator() {
         return new Object[]{
