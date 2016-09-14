@@ -49,9 +49,9 @@ public class MathParserComplexExpressionsTest {
     @Test
     public void processExpressionWithThreeOperands() throws OverflowException, InvalidOperationException {
         Mockito.when(mockLexer.getTokens(TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_STRING)).thenReturn(TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_TOKENS);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.SUBSTRACT, 5, 6)).thenReturn(-1);
         Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 2, 3)).thenReturn(5);
-        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 5, 5)).thenReturn(10);
-        Mockito.when(mockCalcProxy.binaryOperation(Calculator.SUBSTRACT, 10, 6)).thenReturn(4);
+        Mockito.when(mockCalcProxy.binaryOperation(Calculator.ADD, 5, -1)).thenReturn(4);
         MathParser parser = new MathParser(mockCalcProxy, mockLexer);
 
         int result = parser.processExpression(TWO_PLUS_THREE_PLUS_FIVE_MINUS_SIX_STRING);

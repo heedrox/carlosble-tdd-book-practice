@@ -19,29 +19,13 @@ public class MathParser {
         this.lexer = lexer;
     }
 
+
     public int processExpression(String s) throws OverflowException, InvalidOperationException {
-        List<MathToken> tokens = lexer.getTokens(s);
-
-        if ( (s.contains("*")) || (s.contains("/")) ) { return processNewExpression(s); } //TODO remove when finished
-        int currentValue = tokens.get(0).intValue();
-        int currentOperator = 0;
-        for (int i=1; i<tokens.size();i++) {
-            if (tokens.get(i).isOperator()) {
-                currentOperator = tokens.get(i).getOperator();
-            } else {
-                currentValue = calcProxy.binaryOperation(currentOperator, currentValue, tokens.get(i).intValue());
-            }
-
-        }
-
-        return currentValue;
-    }
-
-    public int processNewExpression(String s) throws OverflowException, InvalidOperationException {
         List<MathToken> tokens = lexer.getTokens(s);
 
 
         while (tokens.size()>1) {
+//            System.out.println( tokens.stream().map(Object::toString).collect(Collectors.joining(" ")));
             int numToken = getNextTokenOperatorToCalculate(tokens);
             substituteTokensWithOperationResultAtTokenPosition(tokens, numToken);
         }
