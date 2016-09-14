@@ -53,6 +53,32 @@ public class CalculatorProxyTest {
         Assert.assertEquals("substracting "+arg1+ " - "+arg2+" gives "+expectedResult, expectedResult, result);
     }
 
+    @Test
+    @Parameters({"2, 2, 4",
+            "3, 4, 12",
+            "5, -3, -15"})
+    public void multipliesTwoNumbers(int arg1, int arg2, int expectedResult) throws OverflowException  {
+        Validator validator = new Validator(minValue, maxValue);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
+
+        int result = calcProxy.binaryOperation(Calculator.MULTIPLY, arg1, arg2);
+
+        Assert.assertEquals("multiplying "+arg1+ " - "+arg2+" gives "+expectedResult, expectedResult, result);
+    }
+
+    @Test
+    @Parameters({"2, 2, 1",
+            "8, 4, 2",
+            "15, -3, -5"})
+    public void dividesTwoNumbers(int arg1, int arg2, int expectedResult) throws OverflowException  {
+        Validator validator = new Validator(minValue, maxValue);
+        CalculatorProxy calcProxy = new CalculatorProxy(calculator, validator);
+
+        int result = calcProxy.binaryOperation(Calculator.DIVIDE, arg1, arg2);
+
+        Assert.assertEquals("dividing "+arg1+ " - "+arg2+" gives "+expectedResult, expectedResult, result);
+    }
+
 
 
     @Test

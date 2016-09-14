@@ -18,8 +18,12 @@ public class CalculatorProxy implements ICalculatorProxy {
         this.validator.validateArgs(arg1, arg2);
         if (operation == Calculator.ADD) {
             return this.calculator.add(arg1, arg2);
-        } else {
+        } else if (operation == Calculator.SUBSTRACT){
             return this.calculator.substract(arg1, arg2);
+        } else if (operation == Calculator.MULTIPLY) {
+            return this.calculator.multiply(arg1, arg2);
+        } else {
+            return this.calculator.divide(arg1, arg2);
         }
     }
 
