@@ -25,6 +25,16 @@ public class Calculator {
         return result;
     }
 
+    public int multiply(int operand1, int operand2) {
+        int result = operand1 * operand2;
+        return result;
+    }
+
+    public int divide(int operand1, int operand2) {
+        int result = operand1 / operand2;
+        return result;
+    }
+
 
 }
 

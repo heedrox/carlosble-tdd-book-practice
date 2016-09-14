@@ -37,4 +37,16 @@ public class CalculatorTest {
         Assert.assertEquals("2 - 3 = -1", -1, result);
     }
 
+    @Test
+    public void calculatorMultiplies() {
+        int result = calculator.multiply(2,3);
+        Assert.assertEquals("2 - 3 = 6", 6, result);
+    }
+
+    @Test
+    public void calculatorDivides() {
+        int result = calculator.divide(10,2);
+        Assert.assertEquals("10 / 2 = 5", 5, result);
+    }
+
 }
